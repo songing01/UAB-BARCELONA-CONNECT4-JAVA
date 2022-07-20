@@ -37,9 +37,6 @@ class Node {
 			p.children = new Node[numOfChildrenOfp];
 		else
 			p.children = null;
-
-		p.children = new Node[numOfChildrenOfp];
-
 		return p;
 	}
 
@@ -80,6 +77,7 @@ public class Minimax {
 
 	}
 
+	// At every parent, print children and visit children
 	static void displayTreeRecursive(Node parent, int level) {
 		if (parent.children == null)
 			return;
@@ -87,17 +85,13 @@ public class Minimax {
 			printNode(parent.children[i], level);
 			displayTreeRecursive(parent.children[i], level + 1);
 		}
-
 	}
 
 	/*
-	 * static void displayTree(Node root) { for (int i = 0; i <
-	 * root.children.length; i++) { System.out.println(root.children[i].value);
-	 * 
-	 * for (int j = 0; j < root.children[i].children.length; j++) {
-	 * System.out.println("  " + root.children[i].children[j].value); } }
-	 * 
-	 * }
+	 * static void displayTree(Node root) { for(int i=0;i<root.children.length;i++)
+	 * { System.out.println(root.children[i].value); for(int j=0;j<
+	 * root.children[i].children.length ;j++) {
+	 * System.out.println("  "+root.children[i].children[j].value); } } }
 	 */
 	static Node createRootNode(int board[][]) {
 		Node p = new Node(board);
