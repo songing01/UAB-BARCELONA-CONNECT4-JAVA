@@ -14,7 +14,12 @@ class Node {
 	}
 
 	int calculateNumOfChildren() {
-		return N; // TODO: implement the function
+		int numOfFullCol = 0;
+		for (int i = 0; i < N; i++)
+			if (board[N - 1][i] != 0)
+				numOfFullCol++;
+
+		return N - numOfFullCol - 1; // TODO: implement the function
 	}
 
 	// I consider that the Node has already created the array of children
@@ -43,13 +48,29 @@ class Node {
 	// This function converts a numOfChild to a columns
 	int transformChildIndex2Column(int childIndex) {
 		// TODO: now contains dummy code
-		return childIndex;
+		int CounterOfEmptyCells = 0;
+		for (int i = 0; i < N; i++) {
+			if (board[N - 1][i] == 0) {
+				if (CounterOfEmptyCells == childIndex)
+					return i;
+				else {
+					CounterOfEmptyCells++;
+				}
+			}
+		}
+		return 0;
 	}
 
 	// Given a column, sets the token into the appropriate cell of the board
 
 	void applyThrow(int column) {
 		// TODO:
+		int i = N - 1;
+		for (i = N - 1; i >= 0; i--) {
+			if (board[i][column] == 0)
+				break;
+		}
+		board[i][column] = 2;
 	}
 
 }
@@ -75,6 +96,24 @@ public class Minimax {
 			System.out.print("  ");
 		System.out.println(p.value);
 
+	}
+
+	/*
+	 * static void minimaxRecursive(Node node, int level) { if(node.children!=null)
+	 * { for(int i=0; i<node.children.length;i++) {
+	 * minimaxRecursive(node.children[i], level); } } if(node.children==null) {
+	 * node.value=heuristicFunction }else { if(level%2==1) if(level%2==0)
+	 * node.value=mins/max } }
+	 */
+
+	// At every node, print and visit children
+	static void displayTreeRecursive2(Node node, int level) {
+		if (node.children == null) {
+			for (int i = 0; i < node.children.length; i++) {
+				displayTreeRecursive(node.children[i], level + 1);
+			}
+		}
+		printNode(node, level);
 	}
 
 	// At every parent, print children and visit children
