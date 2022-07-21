@@ -48,7 +48,8 @@ public class C4 {
 	// difficult: detect diagonals
 
 	static boolean isFinished(int board[][]) {
-		if (isBoardFull(board) == true || detectVConnect(board) == true || detectHConnect(board) == true)
+		if (isBoardFull(board) == true || detectVConnect(board) == true || detectHConnect(board) == true
+				|| detectDConnect(board) == true || detectDConnect2(board) == true)
 			finished = true;
 		return finished;
 	}
@@ -110,6 +111,38 @@ public class C4 {
 						}
 					}
 			}
+		return false;
+	}
+
+	static boolean detectDConnect(int board[][]) {
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++) {
+				if (board[i][j] != 0)
+					if (i + 3 < N && j + 3 < N) {
+						if (board[i][j] == board[i + 1][j + 1] && board[i][j] == board[i + 2][j + 2]
+								&& board[i][j] == board[i + 3][j + 3]) {
+							winner = board[i][j];
+							return true;
+						}
+					}
+			}
+
+		return false;
+	}
+
+	static boolean detectDConnect2(int board[][]) {
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++) {
+				if (board[i][j] != 0)
+					if (i + 3 < N && j - 3 >= 0) {
+						if (board[i][j] == board[i + 1][j - 1] && board[i][j] == board[i + 2][j - 2]
+								&& board[i][j] == board[i + 3][j - 3]) {
+							winner = board[i][j];
+							return true;
+						}
+					}
+			}
+
 		return false;
 	}
 
